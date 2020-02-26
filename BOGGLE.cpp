@@ -1,7 +1,9 @@
+/*
 https://algospot.com/judge/problem/read/BOGGLE
 완전 탐색으로는 시간초과..
 아직 클리어 못함
 메모이제이션 하기
+*/
 
 #include<iostream>
 #include<vector>
