@@ -1,5 +1,5 @@
+[QUADTREE](https://algospot.com/judge/problem/read/QUADTREE#c16650)
 /*
-[QUADTREE](https://algospot.com/judge/problem/read/QUADTREE#c16650).
 아래는 스택으로 카운트를 넣었더니 오버플로우가 나옴 ㅠ
 스택을 사용하지 않는 재귀로으로 바꿔야함
 */
