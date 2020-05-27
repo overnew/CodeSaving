@@ -1,0 +1,157 @@
+//https://www.acmicpc.net/problem/1051
+// 왜 안되는지 이해가 안되네
+
+#include <iostream>
+using namespace std;
+
+int N;
+int M;
+int reta[50][50];
+
+int MaxReta(){
+  int low = N>M ? M : N;
+  int min =1;
+  int temp;
+  int ul;
+  bool find = false;
+
+  /*
+  for(int i=1 ; i<low ; ++i){ //넓이 1은 할필요가없음, i+1이 변의 길이
+    for(int j = 0 ; j<(N-i) ; ++j){
+
+      for(int k=0 ; k<(M-i) ; ++k){
+        ul = reta[j][k];
+        if( reta[j+i][k] == ul && reta[j][k+i] == ul && reta[j+i][k+i] == ul){
+          min = i+1;
+          find = true; //같은 크기의 정사각형은 더이상 찾을 필요x
+          break;
+        }
+
+      }
+      
+      if(find){
+        find = false;
+        break;
+      }
+    }
+  }*/
+  
+  for(int i=0; i<N ; ++i){
+    for(int j=0 ; j<M ;++j){
+      for(int k=1; k < low ; ++k){
+        ul =reta[i][j];
+        if(i+k<N && j+k<M&& reta[i+k][j] ==ul && reta[i][j+k] ==ul&& reta[i+k][j+k] ==ul) {if(k+1>min)
+          min = k+1;
+        }
+        
+      }
+    }
+  }
+
+  return min*min; // 넓이 반환
+}
+
+int main() {
+  int temp; 
+  int line[50];
+
+  cin>>N>>M;
+
+  for(int i=0; i< N; ++i){
+    cin>>line[i];
+  }
+
+  for(int i=0; i<N ; ++i){
+    for(int j=0 ; j<M ; ++j){
+      reta[i][j]= line[i] %10;
+      line[i] /= 10;
+    }
+  }
+  //cout<<"adfd"<<endl;
+
+  cout<< MaxReta()<<endl;
+
+  return 0;
+}
+
+/*
+//뜯어 고친 결과 인풋 받는데 문제가 있었음.. 아래는 블로그후 수정 참조코드
+#include <iostream>
+#include <string>
+using namespace std;
+
+int N;
+int M;
+int arr[50][50];
+
+int Maxarr(){
+  int low = N>M ? M : N;
+  int min =1;
+  int temp;
+  int ul;
+  bool find = false;
+
+  /*
+  for(int i=1 ; i<low ; ++i){ //넓이 1은 할필요가없음, i+1이 변의 길이
+    for(int j = 0 ; j<(N-i) ; ++j){
+
+      for(int k=0 ; k<(M-i) ; ++k){
+        ul = arr[j][k];
+        if( arr[j+i][k] == ul && arr[j][k+i] == ul && arr[j+i][k+i] == ul){
+          min = i+1;
+          find = true; //같은 크기의 정사각형은 더이상 찾을 필요x
+          break;
+        }
+
+      }
+      
+      if(find){
+        find = false;
+        break;
+      }
+    }
+  }*/
+  
+  for(int i=0; i<N ; ++i){
+    for(int j=0 ; j<M ;++j){
+      for(int k=1; k < low ; ++k){
+        ul =arr[i][j];
+        if(i+k<N && j+k<M&& arr[i+k][j] ==ul && arr[i][j+k] ==ul&& arr[i+k][j+k] ==ul) {if(k+1>min)
+          min = k+1;
+        }
+        
+      }
+    }
+  }
+
+  return min*min; // 넓이 반환
+}
+
+int main() {
+  cin >> N >> M;
+
+ 
+
+        for (int i = 0; i < N; i++)
+
+        {
+
+                 string temp;
+
+                 cin >> temp;
+
+ 
+
+                 for (int j = 0; j < M; j++)
+
+                         arr[i][j] = temp[j] - '0';
+
+        }
+
+
+
+  cout<< Maxarr()<<endl;
+
+  return 0;
+}
+*/
