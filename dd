@@ -1,28 +1,38 @@
+//https://www.acmicpc.net/problem/1463
+
 #include <iostream>
+#include<string.h>
 using namespace std;
 
-int N;
+int cache[1000000];
 
-int MakeOne(int n){
-  int count =0 ;
-  while(n != 1){
-    if(n%3 == 0){
-      n/=3;
-    }else if(n%2 == 0){
-      n/=2;
-    }
-    else{
-      n -= 1;
-    }
-    ++count;
-  }
-  return count;
+int MakeOne(int n, int count){
+  int meth[3] = {1000000,1000000,1000000};
+
+  if(n == 1) return count;
+
+  if(cache[n] != -1) return cache[n];
+
+  if(n%3 == 0)
+    meth[0]=MakeOne(n/3, count+1);
+  
+  if(n%2 == 0)
+    meth[1]=MakeOne(n/2, count +1);
+
+  meth[2]=MakeOne(n-1, count +1);
+
+
+
+
 }
 
 int main() {
-  cin>>N;
+  int n;
+  cin >> n;
 
-  cout<<MakeOne(N)<<endl;
+  memset(cache, -1, sizeof(cache));
+
+  cout<< MakeOne(n,0)<<endl;
 
   return 0;
 }
