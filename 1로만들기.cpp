@@ -1,7 +1,11 @@
 //https://www.acmicpc.net/problem/1463
 
 
-// 성공본 아래에서 위로 올라가는 걸로 바꿈
+// 성공본 아래에서 위로 올라가는 걸로 바꿈(bottom-top 재귀가 핵심)
+/*
+아래에서부터 값을 저장. 즉 최소값만이 저장됨. 더 오래걸리는 방향에서도 최소값만을 참조하게되어 효과적.
+ex) 1만 주구장창 뺄때 count는 치솟는데 최소값만을 저장한 캐쉬에 걸리면 최소값으로 바뀜. 어떤 캐쉬값에 접근하든 그것의 
+*/
 #include <iostream>
 #include<string.h>
 using namespace std;
@@ -45,7 +49,7 @@ int main() {
   return 0;
 }
 
-//실패 본
+//실패 본 (top-down으로 사실상 부르트 포스나 )
 #include <iostream>
 #include<string.h>
 using namespace std;
