@@ -12,7 +12,9 @@ int MakeOne(int n, int count){
 
   if(n == 1) return count;
 
-  if(cache[n] != -1) return cache[n];
+  int& ret = cache[n];
+
+  if( ret<=count  && ret != -1) return ret;
 
   if(n%3 == 0)
     meth[0]=MakeOne(n/3, count+1);
@@ -24,9 +26,9 @@ int MakeOne(int n, int count){
 
   a = meth[0] < meth[1] ? meth[0] : meth[1];
   b = meth[1] < meth[2] ? meth[1] : meth[2];
-  cache[n] = a<b ? a: b;
+  ret = a < b ? a: b;
 
-  return cache[n];
+  return ret;
 }
 
 int main() {
@@ -35,7 +37,8 @@ int main() {
 
   memset(cache, -1, sizeof(cache));
 
-  cout<< MakeOne(n,0)<<endl;
+
+  cout <<MakeOne(n,0)<<endl;
 
   return 0;
 }
