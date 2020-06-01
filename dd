@@ -8,6 +8,7 @@ int cache[1000000];
 
 int MakeOne(int n, int count){
   int meth[3] = {1000000,1000000,1000000};
+  int a,b;
 
   if(n == 1) return count;
 
@@ -21,9 +22,11 @@ int MakeOne(int n, int count){
 
   meth[2]=MakeOne(n-1, count +1);
 
+  a = meth[0] < meth[1] ? meth[0] : meth[1];
+  b = meth[1] < meth[2] ? meth[1] : meth[2];
+  cache[n] = a<b ? a: b;
 
-
-
+  return cache[n];
 }
 
 int main() {
