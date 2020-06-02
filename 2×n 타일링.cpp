@@ -1,5 +1,6 @@
 //https://www.acmicpc.net/problem/11726
-//1부터 구해보다 피보나치 수열임을 발견.
+//1부터 구해보다 피보나치 수열임을 발견. 때려 맞춘듯..
+//패턴을 확인해보면 [n]은 [n-1]의 패턴에 하나를 붙인거고, [n-2]의 패턴에 누어진 직사각형 두개을 붙인거.. 이걸 어캐아냐
 
 #include<iostream>
 using namespace std;
