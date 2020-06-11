@@ -1,0 +1,25 @@
+//틀렸으니 수정. 접근
+
+#include <iostream>
+using namespace std;
+
+int cache[101];
+
+int Stair(int n){
+  cache[1] = 9;
+  cache[2] = 17;
+
+  for(int i=3 ; i<=n ; ++i){
+    cache[i] = ((cache[i-1] -2)*2 + 2)%1000000000;
+  }
+  return cache[n];
+}
+
+int main() {
+  int n;
+  cin>> n;
+
+  cout<<Stair(n) <<endl;
+
+  return 0;
+}
