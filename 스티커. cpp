@@ -1,0 +1,64 @@
+//https://www.acmicpc.net/problem/9465
+//맞았당 히히.. 동적 계획법.처음은 위아래만 선택. 다음부터는 아래(R,C)를 선택했으면 r-1,c+1와 r-1,c+2을 선택하는 두가지 분기만 생각하면 된다.
+//위를 선택했을때는 반대로 동일하게 두가지 분기만 선택해주면 모든 경우를 생각할 수있고 두가지중에 더 큰값을 메모이제이션 해두면 된다.
+
+#include <iostream>
+#include <string.h>
+using namespace std;
+
+int stiker[2][100000];
+int cache[2][100000];
+int N;
+
+int Headhigh(int r,int c){
+  if(c > N-1){//종료문 넣기
+    return 0;
+  }else if(c== N-1){
+    return stiker[r][c];
+  }
+  
+  int first,second;
+  int& ret = cache[r][c];
+  if(ret != -1) return ret;
+
+  if(c == 0){
+    cache[0][0] = stiker[0][0] + Headhigh(r+1,c+1);//위
+    cache[1][0] =stiker[1][0] + Headhigh(r,c+1);//아래
+
+    //그냥 cache[0][0]에 최대값 넣어둘게
+    cache[0][0] = cache[0][0] > cache[1][0] ? cache[0][0] :cache[1][0];
+  }else{
+    if(r== 0){//위
+      first = stiker[r][c] + Headhigh(r+1,c+1);
+      second = stiker[r][c+1] + Headhigh(r+1,c+2);
+      ret = first > second ? first:  second;
+
+    }else{//아래
+      first = stiker[r][c] + Headhigh(r-1,c+1);
+      second = stiker[r][c+1] + Headhigh(r-1,c+2);
+      ret = first > second ? first:  second;
+    }
+  }
+
+  return ret;
+}
+
+int main() {
+  int T;
+  cin>> T;
+
+  for(int i=0; i<T ; ++i){
+    cin>> N;
+    memset(cache, -1, sizeof(cache));
+    for(int j=0 ; j<N ;++j){
+      cin>>stiker[0][j];
+    }
+    for(int j=0 ; j<N ;++j){
+      cin>>stiker[1][j];
+    }
+    cout<< Headhigh(0,0)<<endl;
+  }
+
+
+  return 0;
+}
