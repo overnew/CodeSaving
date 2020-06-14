@@ -28,14 +28,14 @@ int main() {
       }
     }
   }
-
+  /*
   for(int i=1; i<a.length() ; ++i){
     max = max > cache[i][b.length()-1]? max:cache[i][b.length()-1]; //행의 끝과 열의 끝에서의 최대값이 결과적으로 lcs일 수 밖에 없음
   }
 
   for(int i=1; i<b.length() ; ++i){
-    max = max > cache[a.length()-1][i]? max:cache[a.length()-1][i];
-  }
+    max = max > cache[a.length()-1][i]? max:cache[a.length()-1][i]; 근데 생각해보니까 걍 캐쉬의 맨 끝값이 최대 값이라 필요가 없으
+  }*/ 
 
   cout<<max<<endl;
 
