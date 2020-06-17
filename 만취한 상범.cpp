@@ -1,4 +1,49 @@
 //https://www.acmicpc.net/problem/6359
+//쉬운 동적계획이였지만 코드 설계의 실수로 
+
+#include <iostream>
+#include <string.h>
+using namespace std;
+
+bool cache[101][101];
+int room[101];
+
+int main() {
+  int t,n;
+  int sum=0;
+  cin >> t;
+
+  memset(cache, true , sizeof(cache)); //ture가 열린것
+
+  for(int i=2; i<=100 ; ++i){
+
+    for(int j=1; j<=100 ;++j ){
+      if(j%i == 0)
+        cache[i][j] = !cache[i-1][j]; //이전의 값에서 i의 배수만 !값을 집어넣기!
+      else
+        cache[i][j] = cache[i-1][j];
+    }
+
+    sum =0;
+
+    for(int j=1; j<=i ; ++j){
+        if(cache[i][j]) ++sum;
+    }
+
+    room[i] = sum;
+  }
+
+
+  for(int i=0; i<t ; ++i){
+    cin>>n;
+    cout<<room[n]<<endl;
+  }
+
+  return 0;
+}
+
+
+
 //왜안돼..
 
 #include <iostream>
