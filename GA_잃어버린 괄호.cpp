@@ -5,51 +5,38 @@
 #include <string>
 using namespace std;
 
-int num[50];
-int idx=0;
-string temp;
+int idx= 0;
+string a;
 
-int GetNumber(int idx){
+int GetNumber(){ //연산자의 앞에 나오는 수를 가져옴
   int sum=0;
-  for(int i = idx; temp[idx] =='+' || temp[idx] =='-'  ; ++i){
+  for( ; a[idx] != '-' && a[idx] != '+' && idx<a.length()  ; ++idx){
     sum *= 10;
-    sum += 
+    sum += (a[idx] -'0');
   }
-
+  return sum;
 }
 
-
 int main() {
-  
-  int t=0;
-  int n =0;
   int sum =0;
+  int temp;
   bool minus = false;
-  cin>> temp;
+  idx = 0;
 
-  for(int i=0; i<temp.length() ; ++i){
-    if(temp[i]=='-'){
-      if(minus) minus= true;
-      n =t;
-      sum -= n;
-      t =0;
-    }else if(temp[i] == '+'){
-      n =t;
+  cin>>a;
 
-      if(minus){ //자신의 앞에 빼기가 있는지{
-        sum -= n;
-      }else{
-        sum += n;
-      }
-      t=0;
+  for(; idx<a.length()  ;++idx){
+    temp = GetNumber();
 
+    if(minus){
+      sum -= temp;
     }else{
-      t *= 10;
-      t += temp[i] - '0';
+      if(a[idx] == '-') minus = true;
+      sum += temp;
     }
   }
 
-
+  cout<<sum<<endl;
 
   return 0;
 }
