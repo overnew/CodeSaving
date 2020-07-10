@@ -1,4 +1,7 @@
 //https://www.acmicpc.net/problem/1806
+/*
+	
+*/
 
 #include<iostream>
 using namespace std;
@@ -28,3 +31,6 @@ int main() {
 
 	return 0;
 }
+
+//부분합으로 단순히 푸는 법과 투포인터스(left,right)로 푸는 두가지 경우
+
