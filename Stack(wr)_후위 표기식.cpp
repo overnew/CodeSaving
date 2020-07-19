@@ -1,5 +1,77 @@
 //https://www.acmicpc.net/problem/1918
 
+/*
+  *와/ +와-의 우선순위를 생각을 못함.
+  함수를 통해 우선순위를 계산할 수 있게 
+*/
+
+#include <iostream>
+#include <stack>
+#include<string>
+using namespace std;
+
+int order(char op){
+  switch(op){
+    case '*':
+    case '/':
+      return 2;
+    break;
+    case '+':
+    case '-':
+      return 1;
+    break;
+
+    default:
+      return 0;
+  }
+}
+
+int main() {
+  string st;
+  string post;
+  stack<char> oper;
+  char temp;
+  cin>>st;
+
+  st = '(' + st+ ')';
+
+  for(int i=0; i<st.size() ; ++i){
+    temp = st[i];
+    if( temp>= 'A' && temp<= 'Z'){
+      post= post + temp;
+    }else{
+      switch(temp){
+        case '*':
+        case '/':
+        case '+':
+        case '-':
+          while(!oper.empty()&& order(oper.top())>= order(temp)){
+            post= post + oper.top();
+            oper.pop();
+          }
+          oper.push(temp);
+        break;
+        case '(':
+          oper.push(temp);
+        break;
+        case ')':
+          while(oper.top() != '('){
+            post= post+ oper.top();
+            oper.pop();
+          }
+          oper.pop();
+        break;
+      }
+    }
+
+  }
+
+  cout<<post<<endl;
+
+  return 0;
+}
+
+//
 #include <iostream>
 #include <stack>
 #include <vector>
