@@ -1,4 +1,10 @@
-https://www.acmicpc.net/problem/2667
+//https://www.acmicpc.net/problem/2667
+
+/*
+  bfs로도 풀수 있는 문제.
+  DFS의 경우 -> 스택을 활용해 최근에 넣은 것을 pop해 4가지로 뻗어 나감.
+  BFS의 경우 -> 큐를 활용: 먼저 넣은 것을 먼저 pop해서 4가지 분류를 큐의 뒤에 
+*/
 
 #include <iostream>
 #include<string>
