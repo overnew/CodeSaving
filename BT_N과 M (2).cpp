@@ -12,6 +12,7 @@ void Recur(int cnt, int idx){
       cout<<arr[i]<<' ';
     }
     cout<<'\n';
+    return;
   }
 
   for(int i=idx; i<=n ; ++i ){
