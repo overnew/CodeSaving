@@ -25,9 +25,9 @@ int KnightBFS(){
 		r = q.front().first;
 		c = q.front().second;
 		q.pop();
-		for(int i=0; i<9 ; ++i){
+		for(int i=0; i<8 ; ++i){
 			nr = r+ ch_r[i];
-			nc = c+ch_c[i];
+			nc = c+ ch_c[i];
 			
 			if(0<=nr &&nr<I && 0<=nc && nc<I){
 				if(board[nr][nc] == -1){
@@ -37,9 +37,11 @@ int KnightBFS(){
 					q.push(make_pair(nr,nc));
 				}
 			}
+
 		}
+    
 	}
-	
+	return -1;
 }
 
 int main(){
