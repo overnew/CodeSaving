@@ -6,7 +6,7 @@
 using namespace std;
 
 int n,k;
-int short_cut[100000];
+int short_cut[100001];
 
 int HideSeekBFS(){
 	queue<int> q;
@@ -41,6 +41,7 @@ int HideSeekBFS(){
 		}
 		
 	}
+  return -1;
 	
 }
 
