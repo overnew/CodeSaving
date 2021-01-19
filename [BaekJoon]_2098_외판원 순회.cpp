@@ -5,44 +5,40 @@ using namespace std;
 
 int city_num;
 int travel_cost[16][16];
-int cache[16][16][(1<<16) -1];
+int cache[16][(1<<16) -1];
 const int MAXN = 17000001;
+int all_visit;
 
-int TravelCities( int start_city,int now_city, int visited, int visited_num){
+int TravelCities( int now_city, int visited){
 
-  if(visited_num >= city_num){
-    if(travel_cost[now_city][start_city] != 0)
-      return travel_cost[now_city][start_city];
+  if(visited == all_visit){
+    if(travel_cost[now_city][0] != 0)
+      return travel_cost[now_city][0];
     else
       return MAXN;
   }
   
-  int& ret = cache[start_city][now_city][visited];
+  int& ret = cache[now_city][visited];
   if(ret != -1)
     return ret;
   
   ret  = MAXN;
   for(int i=0; i< city_num ; ++i)
     if(( ~visited & (1<<i) ) && travel_cost[now_city][i] !=0)
-      ret = min(ret , TravelCities(start_city,i, visited |(1<<i), visited_num+1) + travel_cost[now_city][i]);
+      ret = min(ret , TravelCities(i, visited |(1<<i)) + travel_cost[now_city][i]);
     
-  
   return ret;
 }
 
 int main() {
   cin>>city_num;
+
+  all_visit =( 1<<city_num ) -1;
   for(int i=0; i<city_num; ++i)
     for(int j=0; j<city_num ; ++j)
       cin>>travel_cost[i][j];
   
   memset(cache, -1, sizeof(cache));
-  
-  int result =MAXN;
-
-  for(int i=0; i<city_num ; ++i)
-    result = min(result, TravelCities(i, i, 1<<i, 1));
-  
-  cout<<result<<'\n';
+  cout<<TravelCities(0, 1)<<'\n';
   return 0;
 }
