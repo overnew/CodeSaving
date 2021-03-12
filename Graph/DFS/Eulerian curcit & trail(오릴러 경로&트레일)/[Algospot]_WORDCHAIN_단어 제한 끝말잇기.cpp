@@ -1,4 +1,4 @@
-//
+//https://algospot.com/judge/problem/read/WORDCHAIN
 #include<iostream>
 #include<queue>
 #include<string.h>
