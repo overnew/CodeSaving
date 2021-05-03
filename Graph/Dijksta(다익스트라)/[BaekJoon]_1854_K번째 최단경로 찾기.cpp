@@ -31,14 +31,13 @@ vector<ll> Dijkstra(int start_city){
       if(dist[next_city].size() <K){
         dist[next_city].push(next_cost);
         pq.push({next_cost, next_city});
-      }else if(dist[next_city].top() > next_cost){
+      }else if(dist[next_city].top() > next_cost){  //K개가 우선순위 큐에 존재 하지만 next_cost가 top보다 작은 경우 
         dist[next_city].pop();
         dist[next_city].push(next_cost);
         pq.push({next_cost, next_city});
       }
       
     }
-
   }
 
   vector<ll> ret(city_num+1,-1);
