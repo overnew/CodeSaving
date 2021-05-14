@@ -12,9 +12,10 @@ struct Vertex{
 
 const int INF = 10000000;
 int height, width, grave_num, hole_num;
-bool is_grave[300][300], is_hole[300][300], is_exit[300][300];
-bool visited[300][300];
+bool is_grave[30][30], is_hole[30][30], is_exit[30][30];
+bool visited[30][30];
 int change_pos[4][2] = {{1,0}, {-1,0}, {0,1}, {0,-1}};
+vector<vector<pair<int,int>>> hole_out;
 vector<vector<vector<Vertex>>> adj;
 
 int BellmanFord(){
@@ -54,24 +55,25 @@ int BellmanFord(){
 
 bool MakeGraphBFS(){
   queue<pair<int,int>> q;
+  bool in_que[30][30];
+  memset(in_que, false ,sizeof(in_que));
   q.push({0,0});
-  visited[0][0] = true;
+  in_que[0][0] = true;
 
-  for(int i=0; i<height ; ++i){
-    for(int j=0; j<width ; ++j){
-      if(is_exit[i][j]){
-        q.push({i,j});
-        visited[i][j] = true;
-      }
-        
-    }
-  }
-
-  int now_r, now_c,next_r ,next_c;
+  int now_r, now_c,next_r ,next_c, out_r, out_c;
   while(!q.empty()){
     now_r = q.front().first;
     now_c = q.front().second;
+    visited[now_r][now_c] = true;
     q.pop();
+
+    if(is_hole[now_r][now_c]){
+      out_r = hole_out[now_r][now_c].first;
+      out_c = hole_out[now_r][now_c].second;
+      if(!in_que[out_r][out_c])
+        in_que[out_r][out_c] = true;
+      q.push({out_r, out_c});
+    }
 
     for(int i=0; i<4 ; ++i){
       next_r = now_r + change_pos[i][0];
@@ -82,13 +84,14 @@ bool MakeGraphBFS(){
       if(visited[next_r][next_c] || is_grave[next_r][next_c])
         continue;
 
-      visited[next_r][next_c] = true;
-      q.push({next_r, next_c});
+      if(!in_que[next_r][next_c]){
+        in_que[next_r][next_c] = true;
+        q.push({next_r, next_c});
+      }
       if(!is_hole[now_r][now_c])
         adj[now_r][now_c].push_back({next_r, next_c,1});
       
       adj[next_r][next_c].push_back({now_r, now_c,1});
-
     }
   }
 
@@ -107,6 +110,7 @@ int main(){
 
     cin>>grave_num;
     adj = vector<vector<vector<Vertex>>>(height, vector<vector<Vertex>>(width));
+    hole_out = vector<vector<pair<int,int>>>(height, vector<pair<int,int>>(width));
     memset(is_grave, false, sizeof(is_grave));
     memset(is_hole, false, sizeof(is_hole));
     memset(is_exit, false, sizeof(is_exit));
@@ -123,13 +127,15 @@ int main(){
       cin>>in_c>>in_r>>out_c>>out_r>>time;
       is_hole[in_r][in_c] = true;
       is_exit[out_r][out_c] = true;
+      hole_out[in_r][in_c] = {out_r, out_c};
       adj[in_r][in_c].push_back({out_r,out_c,time});
     }
-    
+
     if(!MakeGraphBFS()){
       cout<<"Impossible\n";
       continue;
     }
+    //출발점의 컴포넌트에서 음수 사이클로 이동할 없어도  never가 나옴. 도착점에도 갈 수x
 
     int result = BellmanFord();
     if(result == -1)
