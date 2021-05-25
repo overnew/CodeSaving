@@ -37,7 +37,7 @@ class DisjointSet{  // Union find 구현
   }
 };
 
-struct LineInfo{
+struct LineInfo{  //간선의 정보를 저장하는 구조체
   int u, v, speed;
   
   bool operator<(const LineInfo& x){
@@ -46,10 +46,10 @@ struct LineInfo{
 };
 
 int KruskalMinUpper(vector<LineInfo>& edges , const int lower_idx){
-
   DisjointSet sets(station_num);
 
   int u, v, union_cnt =0;
+  //lower_idx부터 시작
   for(int i=lower_idx; i<edges.size() ; ++i){
     u = edges[i].u; v = edges[i].v;
 
@@ -62,7 +62,8 @@ int KruskalMinUpper(vector<LineInfo>& edges , const int lower_idx){
     if(sets.Find(0) == sets.Find(station_num-1))
       return edges[i].speed;
 
-    if(union_cnt == station_num-1)
+     //모든 정점이 연결되었으므로 for문 탈출
+    if(union_cnt == station_num-1)  
       break;
   }
   return 1001;
@@ -92,8 +93,10 @@ int main(){
       if( lower >= edges[i].speed )
         continue;
       
+      //하한이 갱신(증가)한 경우에만 의미가 있음
       lower= edges[i].speed;
       upper = KruskalMinUpper(edges, i);
+      
       if(upper == 1001) //더 이상 연결이 불가능
         break;
 
@@ -101,7 +104,6 @@ int main(){
     }
 
     cout<<min_gap<<"\n";
-
   }
 
   return 0;
